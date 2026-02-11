@@ -1,25 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
-import iconDashoard from "../../assets/dashboard.svg";
-import iconTeams from "../../assets/teams.svg";
+import { NavLink, useNavigate } from "react-router-dom";
 import { DropdownMenuList } from "../dropdownMenu/DropdownComponentMenuList";
-import { useEffect, useRef, useState } from "react";
-import AddProjectModal from "../Modals/AddProjectModal";
-import { FiSidebar } from "react-icons/fi";
+import { useRef } from "react";
+import { base_url } from "../../api/config";
+
 import { FaSignOutAlt } from "react-icons/fa";
 
 export function NavComponent({
-  toggleNav,
   handleToggleModal,
   handleToggleProjectUpdate,
   userProject,
-  handleToggleNav,
-  handleLogOut,
 }) {
   const navRef = useRef(null);
+  const navigate = useNavigate()
 
-  function confirmLogOut(){
-    if(window.confirm("Voulez vous vraiment vous déconnecter?")){
-      handleLogOut()
+  function confirmLogOut() {
+    if (window.confirm("Voulez vous vraiment vous déconnecter?")) {
+        fetch(`${base_url}/logout`, {
+          method: "GET",
+          credentials: "include",
+        }).then((req) => {
+          console.log(req.status)
+          navigate("/");
+        });
     }
   }
 
@@ -54,12 +56,12 @@ export function NavComponent({
         <div>
           <div className=" mb-3 opacity-70 px-2 cursor-pointer flex items-center">
             Mes projets
-            <i
-              className="fas fa-plus ml-auto "
-              onClick={handleToggleModal}
-            ></i>
+            <i className="fas fa-plus ml-auto " onClick={handleToggleModal}></i>
           </div>
-          <DropdownMenuList UserProject={userProject} handleToggleProjectUpdate={handleToggleProjectUpdate}/>
+          <DropdownMenuList
+            UserProject={userProject}
+            handleToggleProjectUpdate={handleToggleProjectUpdate}
+          />
         </div>
       </div>
       <div

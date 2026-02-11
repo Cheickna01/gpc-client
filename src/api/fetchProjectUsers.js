@@ -1,6 +1,7 @@
 import { base_url } from "./config"
 
 export const fetchProjectUsers = async (projets, setProjectUsers, navigate,setLoading) => {
+  console.log(projets._id)
   try {
     setLoading(true)
     const res = await fetch(

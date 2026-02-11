@@ -20,6 +20,7 @@ export default function TopBar() {
       body: JSON.stringify({ userMail: user.email }),
     })
       .then((req) => {
+        console.log(req.status)
         if (!req.ok) throw new Error();
         return req.json();
       })

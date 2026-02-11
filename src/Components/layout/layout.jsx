@@ -11,9 +11,31 @@ import { Header } from "../header/header";
 import UpdateProject from "../Modals/UpdateProject";
 import ErrorModal from "../Modals/ErrorModal";
 import { front_url } from "../../api/config";
+import { base_url } from "../../api/config";
 export function LayoutComponent() {
-  const { logout } = useContext(UserContext);
+  const navigate = useNavigate()
   const { UserProject, setNewProject } = All_user_project();
+  const {login} = useContext(UserContext)
+  useEffect(() => {
+    fetch(`${base_url}/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    })
+      .then((req) => {
+        if (req.status === 401) {
+          navigate("/login")
+        } else {
+          return req.json();
+        }
+      })
+      .then((res) => {
+        login(res);
+      });
+  }, []);
+
   useEffect(() => {
     const socket = io(front_url, { transports: ["websocket"] });
     socket.on("add-user", (addUser) => {});
@@ -70,12 +92,9 @@ export function LayoutComponent() {
             } absolute lg:static translate-none `}
           >
             <NavComponent
-              toggleNav={toggleNav}
               handleToggleModal={handleToggleModal}
               handleToggleProjectUpdate={handleToggleProjectUpdate}
               userProject={UserProject}
-              handleToggleNav={handleToggleNav}
-              handleLogOut={logout}
             />
           </div>
           <div

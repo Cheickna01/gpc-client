@@ -29,10 +29,11 @@ export default function Main() {
     <>
       <Routes>
         <Route path="/" element={<Cover />} />
+        <Route path="/login" element={<Login />} />
 
         <Route
           path="/dashboard/"
-          element={user ? <LayoutComponent /> : <Login />}
+          element={<LayoutComponent />}
         >
           <Route index element={<InfoGeneral />} />
 
