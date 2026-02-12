@@ -4,7 +4,7 @@ export const auth = (token, setUser) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      "Authorization": `Bearer ${token}`,
     },
     credentials: "include",
   })
