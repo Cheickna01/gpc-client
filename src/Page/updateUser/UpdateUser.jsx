@@ -12,10 +12,11 @@ import { UserContext } from "../../Context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { base_url } from "../../api/config";
+import { logout } from "../../api/logout";
 export default function UpdateUser() {
   const params = useParams();
   const navigate = useNavigate();
-  const { token, logout } = useContext(UserContext);
+  const { token } = useContext(UserContext);
 
   const [fields, setFields] = useState({
     nom: "",
@@ -91,7 +92,7 @@ export default function UpdateUser() {
           setLoading(false);
           setTimeout(() => {
             toast.dismiss();
-            logout();
+            logout()
             navigate("/login");
           }, 2000);
         })

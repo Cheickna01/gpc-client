@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { base_url } from "../../api/config";
 
 import { FaSignOutAlt } from "react-icons/fa";
+import { logout } from "../../api/logout";
 
 export function NavComponent({
   handleToggleModal,
@@ -15,13 +16,7 @@ export function NavComponent({
 
   function confirmLogOut() {
     if (window.confirm("Voulez vous vraiment vous déconnecter?")) {
-        fetch(`${base_url}/logout`, {
-          method: "GET",
-          credentials: "include",
-        }).then((req) => {
-          console.log(req.status)
-          navigate("/");
-        });
+        logout(navigate)
     }
   }
 
