@@ -9,31 +9,14 @@ import AddProjectModal from "../Modals/AddProjectModal";
 import { All_user_project } from "../../api/all_project_by_user";
 import { Header } from "../header/header";
 import UpdateProject from "../Modals/UpdateProject";
-import ErrorModal from "../Modals/ErrorModal";
 import { front_url } from "../../api/config";
 import { base_url } from "../../api/config";
+import { auth } from "../../api/auth";
 export function LayoutComponent() {
-  const navigate = useNavigate()
   const { UserProject, setNewProject } = All_user_project();
-  const {login} = useContext(UserContext)
+  const {token, setUser} = useContext(UserContext)
   useEffect(() => {
-    fetch(`${base_url}/me`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    })
-      .then((req) => {
-        if (req.status === 401) {
-          navigate("/login")
-        } else {
-          return req.json();
-        }
-      })
-      .then((res) => {
-        login(res);
-      });
+    auth(token, setUser)
   }, []);
 
   useEffect(() => {

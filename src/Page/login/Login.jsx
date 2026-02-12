@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
 import { fetchLogin } from "../../api/fetchLogin";
 import { ToastContainer } from "react-toastify";
-import Spinner from "../../../public/spinner.svg"
+import Spinner from "../../../public/spinner.svg";
 import ErrorModal from "../../Components/Modals/ErrorModal";
 
 export default function Login() {
@@ -15,13 +15,13 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState("")
+  const [loading, setLoading] = useState("");
 
-  const { login } = useContext(UserContext);
+  const { setToken, setUser } = useContext(UserContext);
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetchLogin(data, login, navigate,setLoading);
+    fetchLogin(data, navigate, setLoading, setToken, setUser);
   }
 
   return (
@@ -70,7 +70,7 @@ export default function Login() {
           alt="image"
         />
       </div>
-      {loading && <ErrorModal/>}
+      {loading && <ErrorModal />}
       <ToastContainer />
     </div>
   );

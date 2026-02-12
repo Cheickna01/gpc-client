@@ -9,12 +9,6 @@ export function UserProvider({ children }) {
 
   const [token, setToken] = useState("");
 
-  function login(user) {
-    setUser(user);
-  }
-
-  
-
   // useEffect(() => {
   //   fetch(`${base_url}/me`, {
   //     method: "GET",
@@ -36,7 +30,7 @@ export function UserProvider({ children }) {
   // }, []);
 
   return (
-    <UserContext.Provider value={{ user, token, login, setToken }}>
+    <UserContext.Provider value={{ user, token, setToken, setUser }}>
       {children}
     </UserContext.Provider>
   );

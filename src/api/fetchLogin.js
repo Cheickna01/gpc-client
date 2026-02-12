@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { base_url } from "./config";
 
-export const fetchLogin = (data, login, navigate, setLoading) => {
+export const fetchLogin = (data,navigate, setLoading, setToken, setUser) => {
   setLoading(true);
   fetch(`${base_url}/login`, {
     method: "POST",
@@ -27,7 +27,8 @@ export const fetchLogin = (data, login, navigate, setLoading) => {
     .then((res) => {
       setTimeout(() => {
         if (res.token) {
-          login(res.data);
+          setToken(res.token)
+          setUser(res.data);
           navigate("/dashboard");
         } else {
           console.log("erreur");
